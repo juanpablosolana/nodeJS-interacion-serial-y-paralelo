@@ -11,11 +11,8 @@ app.use(cors())
 
 const parser = port.pipe(new Delimiter({ delimiter: '\n' }))
 parser.on('data', function (data) {
-  if (data.toString() !== bascula[bascula.length - 1])
-  {
-    console.log(bascula.length)
-    bascula.push(data.toString())
-  }
+  // La conexión con el puerto siempre está abierta por lo que solo guardo los valores que cambian
+  data.toString() !== bascula[bascula.length - 1]? bascula.push(data.toString()): null
 })
 
 app.use(express.json());
